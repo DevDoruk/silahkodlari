@@ -6,6 +6,9 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import AddWeapon from './pages/AddWeapon';
 import WeaponList from './pages/WeaponList';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext';
 
 const theme = createTheme({
   palette: {
@@ -23,14 +26,38 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/add" element={<AddWeapon />} />
-          <Route path="/weapons" element={<WeaponList />} />
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/add"
+              element={
+                <ProtectedRoute requireAdmin>
+                  <AddWeapon />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/weapons"
+              element={
+                <ProtectedRoute>
+                  <WeaponList />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
