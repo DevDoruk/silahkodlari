@@ -13,6 +13,14 @@ const weaponSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true
+  },
+  votes: {
+    type: Number,
+    default: 0
+  },
+  voters: {
+    type: [String], // IP adresi veya userId
+    default: []
   }
 }, { timestamps: true });
 

@@ -23,4 +23,40 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Upvote weapon
+router.post('/:id/upvote', async (req, res) => {
+  try {
+    const weapon = await Weapon.findById(req.params.id);
+    if (!weapon) return res.status(404).json({ message: 'Weapon not found' });
+    const voter = req.ip;
+    if (weapon.voters.includes(voter)) {
+      return res.status(400).json({ message: 'You have already voted' });
+    }
+    weapon.votes += 1;
+    weapon.voters.push(voter);
+    await weapon.save();
+    res.json({ votes: weapon.votes });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Downvote weapon
+router.post('/:id/downvote', async (req, res) => {
+  try {
+    const weapon = await Weapon.findById(req.params.id);
+    if (!weapon) return res.status(404).json({ message: 'Weapon not found' });
+    const voter = req.ip;
+    if (weapon.voters.includes(voter)) {
+      return res.status(400).json({ message: 'You have already voted' });
+    }
+    weapon.votes -= 1;
+    weapon.voters.push(voter);
+    await weapon.save();
+    res.json({ votes: weapon.votes });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router; 

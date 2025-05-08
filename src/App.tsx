@@ -31,27 +31,13 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/" element={<Home />} />
+            <Route path="/weapons" element={<WeaponList />} />
             <Route
               path="/add"
               element={
                 <ProtectedRoute requireAdmin>
                   <AddWeapon />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/weapons"
-              element={
-                <ProtectedRoute>
-                  <WeaponList />
                 </ProtectedRoute>
               }
             />
