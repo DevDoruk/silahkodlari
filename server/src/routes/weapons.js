@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Weapon = require('../models/Weapon');
+const verifyAdmin = require('../middleware/verifyAdmin');
 
 // Get all weapons
 router.get('/', async (req, res) => {
@@ -12,8 +13,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Add new weapon
-router.post('/', async (req, res) => {
+// Add new weapon (sadece admin)
+router.post('/', verifyAdmin, async (req, res) => {
   try {
     const weapon = new Weapon(req.body);
     await weapon.save();
