@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Typography, Box, Paper } from '@mui/material';
+import Footer from '../components/Footer';
 
 const Home = () => {
   return (
@@ -24,6 +25,7 @@ const Home = () => {
           </ul>
         </Box>
       </Paper>
+      <Footer />
     </Container>
   );
 };
