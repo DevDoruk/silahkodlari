@@ -22,29 +22,27 @@ const Navbar: React.FC = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Delta Force Weapons
+          Efix | Delta Force Silah Kodları
         </Typography>
         <Box>
+          <Button color="inherit" component={RouterLink} to="/">
+            Anasayfa
+          </Button>
+          <Button color="inherit" component={RouterLink} to="/weapons">
+            Silahlar
+          </Button>
+          {isAuthenticated && isAdmin && (
+            <Button color="inherit" component={RouterLink} to="/add">
+              Silah Ekle
+            </Button>
+          )}
           {isAuthenticated ? (
-            <>
-              <Button color="inherit" component={RouterLink} to="/">
-                Home
-              </Button>
-              <Button color="inherit" component={RouterLink} to="/weapons">
-                Weapons
-              </Button>
-              {isAdmin && (
-                <Button color="inherit" component={RouterLink} to="/add">
-                  Add Weapon
-                </Button>
-              )}
-              <Button color="inherit" onClick={handleLogout}>
-                Logout
-              </Button>
-            </>
+            <Button color="inherit" onClick={handleLogout}>
+              Çıkış
+            </Button>
           ) : (
             <Button color="inherit" component={RouterLink} to="/login">
-              Login
+              Giriş
             </Button>
           )}
         </Box>
